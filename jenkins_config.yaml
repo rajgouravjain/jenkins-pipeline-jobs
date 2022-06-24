@@ -1,7 +1,6 @@
 ---
-- app_name: Helloworld
-  approot: src
-  unittest: true
-  integrationtest: true
-  deployment_type: container
-  
+app_name: Helloworld
+approot: src
+unittest: true
+integrationtest: true
+deployment_type: container
