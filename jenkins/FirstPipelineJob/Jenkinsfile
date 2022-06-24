@@ -9,5 +9,9 @@ node {
     checkout scm
   }
   utils.hello 'Aloha!!'
-
+  stage("Initialization"){
+    println "Reading Jenkins configuration  file"
+    config = utils.get_config("./jenkins_config.yaml")
+    println $config
+  }
 }
