@@ -12,6 +12,6 @@ node {
   stage("Initialization"){
     println "Reading Jenkins configuration  file"
     def config = utils.get_config(env.WORKSPACE + "/jenkins_config.yaml")
-    println $config
+    println config
   }
 }
