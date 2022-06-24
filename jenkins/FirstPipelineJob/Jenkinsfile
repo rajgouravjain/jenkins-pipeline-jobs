@@ -3,9 +3,11 @@
 import com.example.devops.jenkins.Utilities
 
 def utils = new Utilities(this)
-def config
-def workspace = env.WORKSPACE
 node {
+
+  def config
+  def workspace = env.WORKSPACE
+
   stage("Checkout SCM") {
     checkout scm
   }
