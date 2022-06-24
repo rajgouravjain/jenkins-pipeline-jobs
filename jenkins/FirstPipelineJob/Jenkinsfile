@@ -4,6 +4,7 @@ import com.example.devops.jenkins.Utilities
 
 def utils = new Utilities(this)
 def config
+def workspace = env.WORKSPACE
 node {
   stage("Checkout SCM") {
     checkout scm
@@ -13,24 +14,24 @@ node {
 
   stage("Initialization"){
     println "Reading Jenkins configuration  file"
-    config = utils.get_config(env.WORKSPACE + "/jenkins_config.yaml")
+    config = utils.get_config(workspace + "/jenkins_config.yaml")
     println config["app_name"]
   }
 
   stage("Building app") {
-    utils.build(config)
+    utils.build(config,workspace)
   }
 
   stage("Testing App"){
-    utils.test(config)
+    utils.test(config,workspace)
 
   }
 
   stage("Deploying app"){
-    utils.deploy(config)
+    utils.deploy(config,workspace)
   }
 
   stage("SmokeTest"){
-    utils.smoketest(config)
+    utils.smoketest(config,workspace)
   }
 }
