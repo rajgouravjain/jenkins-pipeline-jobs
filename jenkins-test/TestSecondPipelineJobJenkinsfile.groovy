@@ -32,16 +32,20 @@ class TestSecondPipelineJobJenkinsfile extends BasePipelineTest {
         //    return println "executing mock closure with arguments (arguments: '${stringArg}', '${intArg}', '${collectionArg}')"
         //})
 
+
+
         // TODO: Find a better way of getting project root dir
-        String dirPath = new File( System.getProperty("user.dir") )
-                .getAbsoluteFile()
-                .getParentFile()
-                .getAbsolutePath()
+        // working dirPath
+        //String dirPath = new File( System.getProperty("user.dir") )
+        //        .getAbsoluteFile()
+        //        .getParentFile()
+        //        .getAbsolutePath()
+        def dirPath = System.getProperty("user.home") + "/codehub/jenkins-pipeline-lib"
         def source = ProjectSource.projectSource(dirPath);
         def libDesc = new LibraryConfiguration();
         libDesc.name = 'jenkins-pipeline-lib';
         libDesc.retriever = source;
-        libDesc.defaultVersion = 'v1';
+        libDesc.defaultVersion = 'master';
         libDesc.allowOverride = true;
         libDesc.implicit = false;
         helper.registerSharedLibrary(libDesc)
@@ -50,7 +54,7 @@ class TestSecondPipelineJobJenkinsfile extends BasePipelineTest {
     @Test
     void should_execute_without_errors() throws Exception {
 
-        runScript("src/main/jenkins/SecondPipelineJob/Jenkinsfile")
+        runScript("jenkins/SecondPipelineJob/Jenkinsfile")
         printCallStack()
     }
 }

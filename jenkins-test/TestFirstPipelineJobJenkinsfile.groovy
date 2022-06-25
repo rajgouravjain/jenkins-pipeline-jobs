@@ -16,6 +16,11 @@ class TestFirstPipelineJobJenkinsfile extends BasePipelineTest {
         super.setUp();
         //helper.registerAllowedMethod("sh", [Map.class], {c -> "bcc19744"})
         binding.setVariable('scm', {})
+        // Assigns false to a job parameter ENABLE_TEST_STAGE
+        binding.setVariable('WORKSPACE', "./")
+        binding.setVariable('env', [
+                WORKSPACE : System.getProperty("user.home") + "/codehub/jenkins-pipeline-jobs"
+        ])
         helper.registerAllowedMethod("timeout", [Map.class, Closure.class], null)
         helper.registerAllowedMethod("timestamps", [Closure.class], { it -> it() })
         helper.registerAllowedMethod('checkout', [Closure.class], null)
@@ -42,7 +47,7 @@ class TestFirstPipelineJobJenkinsfile extends BasePipelineTest {
                 .name('jenkins-pipeline-lib')
                 .retriever(GitSource.gitSource('https://github.com/rajgouravjain/jenkins-pipeline-lib.git'))
                 .targetPath(clonePath)
-                .defaultVersion("v1")
+                .defaultVersion("master")
                 .allowOverride(true)
                 .implicit(false)
                 .build()
@@ -50,7 +55,7 @@ class TestFirstPipelineJobJenkinsfile extends BasePipelineTest {
 
         //def script = loadScript("pipeline_jobs/SecondPipelineJob/Jenkinsfile")
         //script.execute()
-        runScript("src/main/jenkins/FirstPipelineJob/Jenkinsfile")
+        runScript("jenkins/FirstPipelineJob/Jenkinsfile")
         printCallStack()
     }
 }
